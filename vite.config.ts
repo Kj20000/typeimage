@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
   // ✅ REQUIRED for Cloudflare (and custom domains)
-  base: "/",
+  base: process.env.GITHUB_PAGES ? "/typeimage/" : "/",
 
   server: {
     host: "::",
