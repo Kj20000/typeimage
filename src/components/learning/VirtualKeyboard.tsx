@@ -78,7 +78,7 @@ export const VirtualKeyboard = ({
           onClick={onBackspace}
           className="
             bg-white shadow-md rounded-2xl 
-            font-bold flex items-center justify-center
+            font-bold flex items-center justify-center 
             text-lg sm:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
@@ -96,7 +96,7 @@ export const VirtualKeyboard = ({
           onClick={onClear}
           className="
             bg-white shadow-md rounded-2xl 
-            font-bold flex items-center justify-center
+            font-bold flex items-center justify-center 
             text-lg sm:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
