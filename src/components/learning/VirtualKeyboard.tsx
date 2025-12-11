@@ -20,19 +20,19 @@ export const VirtualKeyboard = ({
       onClick={() => onKeyClick(letter)}
       className={`
         select-none
-        rounded-lg
-        font-semibold
+        rounded-xl
+        font-bold
         flex items-center justify-center
-        text-sm md:text-lg
-        px-2 md:px-3
-        py-2 md:py-3
-        active:scale-95
+        text-xs sm:text-sm md:text-base
+        active:scale-90
         transition-all
+        shadow-md
         aspect-square
+        border-2 border-blue-600
         ${
           highlightedKey === letter.toLowerCase()
-            ? "bg-yellow-400 text-white shadow-lg"
-            : "bg-white text-black shadow-md hover:bg-gray-50"
+            ? "bg-gradient-to-br from-yellow-300 to-yellow-400 text-blue-800 shadow-lg border-yellow-500"
+            : "bg-gradient-to-br from-white to-gray-100 text-blue-800 hover:from-blue-50 hover:to-blue-100"
         }
       `}
       style={{
@@ -44,43 +44,34 @@ export const VirtualKeyboard = ({
   );
 
   return (
-    <div
-      className="
-        w-full
-        h-full
-        bg-blue-200
-        p-1 md:p-2
-        rounded-t-2xl
-        flex flex-col
-        gap-0.5 md:gap-1
-        z-50
-        overflow-y-auto
-      "
-    >
+    <div className="w-full h-full bg-gradient-to-b from-blue-300 via-blue-350 to-blue-400 flex flex-col gap-1 md:gap-1.5 p-1.5 md:p-2 overflow-y-auto">
       {/* ROW 1 */}
-      <div className="grid grid-cols-10 gap-0.5 md:gap-1 w-full">
+      <div className="grid grid-cols-10 gap-1 md:gap-1.5 w-full">
         {row1.map((l) => (
           <KeyButton key={l} letter={l} />
         ))}
       </div>
 
       {/* ROW 2 */}
-      <div className="grid grid-cols-9 gap-0.5 md:gap-1 w-full mx-auto">
+      <div className="grid grid-cols-9 gap-1 md:gap-1.5 mx-auto" style={{ width: "95%" }}>
         {row2.map((l) => (
           <KeyButton key={l} letter={l} />
         ))}
       </div>
 
       {/* ROW 3 */}
-      <div className="grid grid-cols-9 gap-0.5 md:gap-1 w-full mx-auto mb-0 pb-0">
+      <div className="grid grid-cols-9 gap-1 md:gap-1.5 mx-auto" style={{ width: "95%" }}>
         {/* BACKSPACE */}
         <button
           onClick={onBackspace}
           className="
-            bg-white shadow-md rounded-lg 
+            bg-gradient-to-br from-red-300 to-red-400
+            shadow-md rounded-xl 
             font-bold flex items-center justify-center 
-            text-sm md:text-lg
-            active:scale-95
+            text-xs sm:text-sm md:text-base
+            border-2 border-red-600
+            active:scale-90
+            transition-all
             aspect-square
           "
         >
@@ -95,10 +86,13 @@ export const VirtualKeyboard = ({
         <button
           onClick={onClear}
           className="
-            bg-white shadow-md rounded-lg 
+            bg-gradient-to-br from-orange-300 to-orange-400
+            shadow-md rounded-xl 
             font-bold flex items-center justify-center 
-            text-xs md:text-sm
-            active:scale-95
+            text-xs sm:text-sm md:text-base
+            border-2 border-orange-600
+            active:scale-90
+            transition-all
             aspect-square
           "
         >
