@@ -171,6 +171,7 @@ const Learning = () => {
           flex flex-col
           lg:flex-row
           portrait:pb-[40dvh] landscape:pb-[50dvh]
+          overflow-hidden
         "
       >
         {/* IMAGE – FIXED LEFT SIDE */}
@@ -180,6 +181,7 @@ const Learning = () => {
             p-4
             relative min-h-0
             lg:w-1/2 lg:justify-center
+            overflow-hidden
           "
         >
           <button
@@ -196,23 +198,16 @@ const Learning = () => {
               className="
                 object-contain rounded-xl shadow-xl border-4 border-primary/20
                 animate-scale-in
-                
-                /* Mobile size */
                 w-[230px] h-[230px]
-
-                /* Tablet portrait */
-                portrait:md:w-[450px] portrait:md:h-[300px]
-                
-                /* Landscape FIXED height reduced */
-                landscape:md:w-[500px] 
-                landscape:md:h-[260px] 
-                landscape:max-h-[260px]
+                sm:w-[300px] sm:h-[300px]
+                md:w-[350px] md:h-[350px]
+                lg:w-[280px] lg:h-[280px]
               "
             />
           )}
 
           {currentWord && mode === "word-first" && !wordCompleted && (
-            <div className="flex items-center justify-center w-[230px] h-[230px] portrait:md:w-[450px] portrait:md:h-[300px] landscape:md:w-[500px] landscape:md:h-[260px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
+            <div className="flex items-center justify-center w-[230px] h-[230px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px] lg:w-[280px] lg:h-[280px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
               <span className="text-6xl">❓</span>
             </div>
           )}
@@ -231,6 +226,7 @@ const Learning = () => {
             flex items-center justify-center
             py-4 md:py-2 px-4
             lg:w-1/2 lg:justify-center
+            overflow-hidden
           "
         >
           <WordInput
