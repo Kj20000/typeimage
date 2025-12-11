@@ -40,6 +40,22 @@ const Learning = () => {
   }, [currentIndex, words]);
 
   const fetchWords = async () => {
+    // Check if Supabase is configured
+    if (!supabase.supabaseUrl || !supabase.supabaseKey) {
+      // Use mock data for demo when Supabase isn't configured
+      const mockWords: Word[] = [
+        { word: "apple", image_url: "https://images.unsplash.com/photo-1560806887-1295141dd4e8?w=400" },
+        { word: "banana", image_url: "https://images.unsplash.com/photo-1587132137056-7f88f1ce138c?w=400" },
+        { word: "cat", image_url: "https://images.unsplash.com/photo-1574158622682-e40ad452733d?w=400" },
+        { word: "dog", image_url: "https://images.unsplash.com/photo-1633722715463-d30628519e4f?w=400" },
+        { word: "elephant", image_url: "https://images.unsplash.com/photo-1564349332651-df9b06fa4e62?w=400" },
+      ];
+      setWords(mockWords);
+      setCurrentIndex(Math.floor(Math.random() * mockWords.length));
+      toast.info("Using demo words (Supabase not configured)");
+      return;
+    }
+
     const { data, error } = await supabase
       .from("words")
       .select("word, image_url")
