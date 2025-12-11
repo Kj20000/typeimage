@@ -40,22 +40,6 @@ const Learning = () => {
   }, [currentIndex, words]);
 
   const fetchWords = async () => {
-    // Check if Supabase is configured
-    if (!supabase.supabaseUrl || !supabase.supabaseKey) {
-      // Use mock data for demo when Supabase isn't configured
-      const mockWords: Word[] = [
-        { word: "apple", image_url: "https://images.unsplash.com/photo-1560806887-1295141dd4e8?w=400" },
-        { word: "banana", image_url: "https://images.unsplash.com/photo-1587132137056-7f88f1ce138c?w=400" },
-        { word: "cat", image_url: "https://images.unsplash.com/photo-1574158622682-e40ad452733d?w=400" },
-        { word: "dog", image_url: "https://images.unsplash.com/photo-1633722715463-d30628519e4f?w=400" },
-        { word: "elephant", image_url: "https://images.unsplash.com/photo-1564349332651-df9b06fa4e62?w=400" },
-      ];
-      setWords(mockWords);
-      setCurrentIndex(Math.floor(Math.random() * mockWords.length));
-      toast.info("Using demo words (Supabase not configured)");
-      return;
-    }
-
     const { data, error } = await supabase
       .from("words")
       .select("word, image_url")
@@ -152,217 +136,120 @@ const Learning = () => {
   };
 
   return (
-    <div className="h-[100dvh] w-full overflow-hidden bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 flex flex-col">
+    <div className="h-[100dvh] w-full overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 flex flex-col">
       
-      {/* HEADER – SLIM */}
-      <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 px-4 py-2 shadow-md flex-shrink-0">
-        <div className="flex justify-between items-center max-w-7xl mx-auto">
-          <h1 className="text-sm sm:text-base font-bold text-white">✨ Word Learning</h1>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-2.5 py-1">
-              <Image className={`h-3.5 w-3.5 ${mode === "image-first" ? "text-yellow-300" : "text-white/60"}`} />
-              <Switch
-                checked={mode === "word-first"}
-                onCheckedChange={(checked) => setMode(checked ? "word-first" : "image-first")}
-                className="data-[state=checked]:bg-yellow-300 scale-75"
-              />
-              <Type className={`h-3.5 w-3.5 ${mode === "word-first" ? "text-yellow-300" : "text-white/60"}`} />
-            </div>
-            <Button
-              onClick={() => navigate("/settings")}
-              variant="secondary"
-              size="icon"
-              className="bg-white/20 hover:bg-white/30 text-white h-7 w-7"
-            >
-              <Settings className="h-3.5 w-3.5" />
-            </Button>
-          </div>
+      {/* HEADER */}
+      <div className="bg-gradient-to-r from-primary to-secondary p-2 shadow-lg flex-shrink-0">
+        <div className="flex justify-between items-center px-2">
+          <h1 className="text-lg font-bold text-white">🎨 Word Learning</h1>
+          <Button
+            onClick={() => navigate("/settings")}
+            variant="secondary"
+            size="icon"
+            className="bg-white/20 hover:bg-white/30 text-white h-8 w-8"
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
         </div>
       </div>
 
-      {/* PORTRAIT MODE: IMAGE TOP, WORD BOX MIDDLE, KEYBOARD BOTTOM */}
-      <div className="flex-1 min-h-0 flex flex-col portrait:gap-2 portrait:p-2 landscape:hidden">
-        
-        {/* IMAGE – LARGE AND SQUARE */}
-        <div className="flex-1 min-h-0 flex items-center justify-center relative">
+      {/* MODE TOGGLE */}
+      <div className="flex items-center justify-end gap-2 px-4 py-2 flex-shrink-0">
+        <Image className={`h-4 w-4 ${mode === "image-first" ? "text-primary" : "text-muted-foreground"}`} />
+        <Switch
+          checked={mode === "word-first"}
+          onCheckedChange={(checked) => setMode(checked ? "word-first" : "image-first")}
+          className="data-[state=checked]:bg-primary"
+        />
+        <Type className={`h-4 w-4 ${mode === "word-first" ? "text-primary" : "text-muted-foreground"}`} />
+      </div>
+
+      {/* CONTENT – FIXED 50/50 LAYOUT ON LARGE SCREENS */}
+      <div
+        className="
+          flex-1 min-h-0
+          flex flex-col
+          lg:flex-row
+          portrait:pb-[40dvh] landscape:pb-[50dvh]
+        "
+      >
+        {/* IMAGE – FIXED LEFT SIDE */}
+        <div
+          className="
+            flex-1 flex items-center justify-center
+            p-4
+            relative min-h-0
+            lg:w-1/2 lg:justify-center
+          "
+        >
           <button
             onClick={goPrevious}
-            className="absolute left-1 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-lg transition-all active:scale-90"
+            className="absolute left-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
           >
-            <ChevronLeft className="h-5 w-5 text-purple-500" />
+            <ChevronLeft className="h-6 w-6 text-primary" />
           </button>
 
           {currentWord && (mode === "image-first" || wordCompleted) && (
-            <div className="bg-white rounded-3xl shadow-lg p-3 border-4 border-purple-200">
-              <img
-                src={currentWord.image_url}
-                alt={currentWord.word}
-                className="h-[200px] w-[200px] sm:h-[240px] sm:w-[240px] object-cover rounded-2xl"
-              />
-            </div>
+            <img
+              src={currentWord.image_url}
+              alt={currentWord.word}
+              className="
+                object-contain rounded-xl shadow-xl border-4 border-primary/20
+                animate-scale-in
+                
+                /* Mobile size */
+                w-[230px] h-[230px]
+
+                /* Tablet portrait */
+                portrait:md:w-[450px] portrait:md:h-[300px]
+                
+                /* Landscape FIXED height reduced */
+                landscape:md:w-[500px] 
+                landscape:md:h-[260px] 
+                landscape:max-h-[260px]
+              "
+            />
           )}
 
           {currentWord && mode === "word-first" && !wordCompleted && (
-            <div className="bg-white rounded-3xl shadow-lg p-3 border-4 border-purple-200 flex items-center justify-center h-[200px] w-[200px] sm:h-[240px] sm:w-[240px]">
-              <span className="text-7xl sm:text-8xl">❓</span>
+            <div className="flex items-center justify-center w-[230px] h-[230px] portrait:md:w-[450px] portrait:md:h-[300px] landscape:md:w-[500px] landscape:md:h-[260px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
+              <span className="text-6xl">❓</span>
             </div>
           )}
 
           <button
             onClick={goNext}
-            className="absolute right-1 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-lg transition-all active:scale-90"
+            className="absolute right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
           >
-            <ChevronRight className="h-5 w-5 text-purple-500" />
+            <ChevronRight className="h-6 w-6 text-primary" />
           </button>
         </div>
 
-        {/* WORD BOX – SQUARE */}
-        <div className="flex-shrink-0 flex items-center justify-center">
-          <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl shadow-xl p-4 border-4 border-blue-300 w-full max-w-xs">
-            <WordInput
-              ref={inputRef}
-              value={currentInput}
-              suggestion={suggestion}
-              wordLength={currentWord?.word.length || 0}
-            />
-          </div>
-        </div>
-
-        {/* KEYBOARD */}
-        <div className="flex-shrink-0 h-[28dvh] bg-gradient-to-t from-blue-400 via-blue-300 to-blue-200 rounded-t-3xl shadow-2xl p-2">
-          <VirtualKeyboard
-            onKeyClick={handleKeyClick}
-            onBackspace={handleBackspace}
-            onClear={handleClear}
-            highlightedKey={highlightedKey}
+        {/* FIXED RIGHT SIDE – WORD BOX */}
+        <div
+          className="
+            flex items-center justify-center
+            py-4 md:py-2 px-4
+            lg:w-1/2 lg:justify-center
+          "
+        >
+          <WordInput
+            ref={inputRef}
+            value={currentInput}
+            suggestion={suggestion}
+            wordLength={currentWord?.word.length || 0}
           />
         </div>
       </div>
 
-      {/* LANDSCAPE MODE: IMAGE LEFT, WORD BOX + KEYBOARD RIGHT */}
-      <div className="flex-1 min-h-0 portrait:hidden landscape:flex landscape:gap-2 landscape:p-2">
-        
-        {/* LEFT SIDE – IMAGE */}
-        <div className="landscape:w-[40%] flex items-center justify-center relative">
-          <button
-            onClick={goPrevious}
-            className="absolute left-1 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-1 shadow-lg transition-all active:scale-90"
-          >
-            <ChevronLeft className="h-4 w-4 text-purple-500" />
-          </button>
-
-          {currentWord && (mode === "image-first" || wordCompleted) && (
-            <div className="bg-white rounded-3xl shadow-lg p-2 border-4 border-purple-200">
-              <img
-                src={currentWord.image_url}
-                alt={currentWord.word}
-                className="h-[160px] w-[160px] sm:h-[200px] sm:w-[200px] md:h-[240px] md:w-[240px] object-cover rounded-2xl"
-              />
-            </div>
-          )}
-
-          {currentWord && mode === "word-first" && !wordCompleted && (
-            <div className="bg-white rounded-3xl shadow-lg p-2 border-4 border-purple-200 flex items-center justify-center h-[160px] w-[160px] sm:h-[200px] sm:w-[200px] md:h-[240px] md:w-[240px]">
-              <span className="text-5xl sm:text-6xl">❓</span>
-            </div>
-          )}
-
-          <button
-            onClick={goNext}
-            className="absolute right-1 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-1 shadow-lg transition-all active:scale-90"
-          >
-            <ChevronRight className="h-4 w-4 text-purple-500" />
-          </button>
-        </div>
-
-        {/* RIGHT SIDE – WORD BOX + KEYBOARD */}
-        <div className="landscape:w-[60%] flex flex-col landscape:gap-1.5">
-          
-          {/* WORD BOX */}
-          <div className="flex-shrink-0 flex items-center justify-center">
-            <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl shadow-xl p-3 border-4 border-blue-300 w-full">
-              <WordInput
-                ref={inputRef}
-                value={currentInput}
-                suggestion={suggestion}
-                wordLength={currentWord?.word.length || 0}
-              />
-            </div>
-          </div>
-
-          {/* KEYBOARD */}
-          <div className="flex-1 min-h-0 bg-gradient-to-t from-blue-400 via-blue-300 to-blue-200 rounded-3xl shadow-2xl p-1.5 overflow-hidden">
-            <VirtualKeyboard
-              onKeyClick={handleKeyClick}
-              onBackspace={handleBackspace}
-              onClear={handleClear}
-              highlightedKey={highlightedKey}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* LARGE SCREENS: STANDARD LAYOUT */}
-      <div className="hidden lg:flex flex-1 min-h-0 gap-4 p-4">
-        
-        {/* IMAGE */}
-        <div className="w-[45%] flex items-center justify-center relative">
-          <button
-            onClick={goPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all active:scale-90"
-          >
-            <ChevronLeft className="h-6 w-6 text-purple-500" />
-          </button>
-
-          {currentWord && (mode === "image-first" || wordCompleted) && (
-            <div className="bg-white rounded-3xl shadow-2xl p-4 border-4 border-purple-200">
-              <img
-                src={currentWord.image_url}
-                alt={currentWord.word}
-                className="h-[300px] w-[300px] object-cover rounded-2xl"
-              />
-            </div>
-          )}
-
-          {currentWord && mode === "word-first" && !wordCompleted && (
-            <div className="bg-white rounded-3xl shadow-2xl p-4 border-4 border-purple-200 flex items-center justify-center h-[300px] w-[300px]">
-              <span className="text-9xl">❓</span>
-            </div>
-          )}
-
-          <button
-            onClick={goNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all active:scale-90"
-          >
-            <ChevronRight className="h-6 w-6 text-purple-500" />
-          </button>
-        </div>
-
-        {/* RIGHT SIDE – WORD BOX + KEYBOARD */}
-        <div className="w-[55%] flex flex-col gap-3">
-          
-          {/* WORD BOX */}
-          <div className="flex-shrink-0 flex items-center justify-center">
-            <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl shadow-2xl p-6 border-4 border-blue-300 w-full">
-              <WordInput
-                ref={inputRef}
-                value={currentInput}
-                suggestion={suggestion}
-                wordLength={currentWord?.word.length || 0}
-              />
-            </div>
-          </div>
-
-          {/* KEYBOARD */}
-          <div className="flex-1 min-h-0 bg-gradient-to-t from-blue-400 via-blue-300 to-blue-200 rounded-3xl shadow-2xl p-3 overflow-hidden">
-            <VirtualKeyboard
-              onKeyClick={handleKeyClick}
-              onBackspace={handleBackspace}
-              onClear={handleClear}
-              highlightedKey={highlightedKey}
-            />
-          </div>
-        </div>
+      {/* KEYBOARD (BOTTOM FIXED) */}
+      <div className="fixed bottom-0 left-0 right-0 portrait:h-[40dvh] landscape:h-[50dvh] z-50">
+        <VirtualKeyboard
+          onKeyClick={handleKeyClick}
+          onBackspace={handleBackspace}
+          onClear={handleClear}
+          highlightedKey={highlightedKey}
+        />
       </div>
     </div>
   );
