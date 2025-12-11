@@ -221,13 +221,13 @@ ${m}`}class Ae extends Error{constructor({message:e,code:r,cause:n,name:s}){var 
         z-50
       `,children:[x.jsx("div",{className:"grid grid-cols-10 gap-2 sm:gap-3 w-full",children:s.map(l=>x.jsx(a,{letter:l},l))}),x.jsx("div",{className:"grid grid-cols-9 gap-2 sm:gap-3 w-[92%] mx-auto",children:i.map(l=>x.jsx(a,{letter:l},l))}),x.jsxs("div",{className:"grid grid-cols-9 gap-2 sm:gap-3 w-[92%] mx-auto mb-0 pb-0",children:[x.jsx("button",{onClick:e,className:`
             bg-white shadow-md rounded-2xl 
-            font-bold flex items-center justify-center
+            font-bold flex items-center justify-center 
             text-lg sm:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
           `,children:"⌫"}),o.map(l=>x.jsx(a,{letter:l},l)),x.jsx("button",{onClick:r,className:`
             bg-white shadow-md rounded-2xl 
-            font-bold flex items-center justify-center
+            font-bold flex items-center justify-center 
             text-lg sm:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
