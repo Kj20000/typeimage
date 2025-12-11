@@ -180,22 +180,15 @@ const Learning = () => {
         <Type className={`h-4 w-4 ${mode === "word-first" ? "text-primary" : "text-muted-foreground"}`} />
       </div>
 
-      {/* CONTENT – FIXED 50/50 LAYOUT ON LARGE SCREENS */}
-      <div
-        className="
-          flex-1 min-h-0
-          flex flex-col
-          lg:flex-row
-          portrait:pb-[40dvh] landscape:pb-[50dvh]
-        "
-      >
-        {/* IMAGE – FIXED LEFT SIDE */}
+      {/* CONTENT AREA */}
+      <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-2 lg:gap-4 p-2 lg:p-4">
+        {/* IMAGE – LEFT SIDE */}
         <div
           className="
-            flex-1 flex items-center justify-center 
-            p-4
-            relative min-h-0
-            lg:w-1/2 lg:justify-center
+            flex items-center justify-center 
+            flex-1 min-h-0
+            relative
+            lg:w-1/2
           "
         >
           <button
@@ -213,22 +206,25 @@ const Learning = () => {
                 object-contain rounded-xl shadow-xl border-4 border-primary/20
                 animate-scale-in
                 
-                /* Mobile size */
-                w-[230px] h-[230px]
+                /* Mobile portrait */
+                h-[180px] w-[180px]
 
                 /* Tablet portrait */
-                portrait:md:w-[450px] portrait:md:h-[300px]
+                portrait:sm:h-[250px] portrait:sm:w-[250px]
+                portrait:md:h-[280px] portrait:md:w-[280px]
 
-                /* Landscape FIXED height reduced */
-                landscape:md:w-[500px] 
-                landscape:md:h-[260px] 
-                landscape:max-h-[260px]
+                /* Landscape */
+                landscape:h-[200px] landscape:w-[200px]
+                landscape:md:h-[240px] landscape:md:w-[240px]
+                
+                /* Large screens */
+                lg:h-[300px] lg:w-[300px]
               "
             />
           )}
 
           {currentWord && mode === "word-first" && !wordCompleted && (
-            <div className="flex items-center justify-center w-[230px] h-[230px] portrait:md:w-[450px] portrait:md:h-[300px] landscape:md:w-[500px] landscape:md:h-[260px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
+            <div className="flex items-center justify-center h-[180px] w-[180px] portrait:sm:h-[250px] portrait:sm:w-[250px] portrait:md:h-[280px] portrait:md:w-[280px] landscape:h-[200px] landscape:w-[200px] landscape:md:h-[240px] landscape:md:w-[240px] lg:h-[300px] lg:w-[300px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
               <span className="text-6xl">❓</span>
             </div>
           )}
@@ -241,12 +237,12 @@ const Learning = () => {
           </button>
         </div>
 
-        {/* FIXED RIGHT SIDE – WORD BOX */}
+        {/* WORD BOX – RIGHT SIDE */}
         <div
           className="
             flex items-center justify-center
-            py-4 md:py-2 px-4
-            lg:w-1/2 lg:justify-center
+            flex-1 min-h-0
+            lg:w-1/2
           "
         >
           <WordInput
@@ -259,7 +255,7 @@ const Learning = () => {
       </div>
 
       {/* KEYBOARD (BOTTOM FIXED) */}
-      <div className="fixed bottom-0 left-0 right-0 portrait:h-[40dvh] landscape:h-[50dvh] z-50">
+      <div className="portrait:h-[35dvh] landscape:md:h-[45dvh] landscape:sm:h-[50dvh] lg:h-auto flex-shrink-0 z-50">
         <VirtualKeyboard
           onKeyClick={handleKeyClick}
           onBackspace={handleBackspace}

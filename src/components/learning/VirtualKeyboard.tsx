@@ -20,14 +20,15 @@ export const VirtualKeyboard = ({
       onClick={() => onKeyClick(letter)}
       className={`
         select-none
-        rounded-2xl
+        rounded-lg
         font-semibold
         flex items-center justify-center
-        text-lg sm:text-2xl
-        px-3 sm:px-4
-        py-3 sm:py-4
+        text-sm md:text-lg
+        px-2 md:px-3
+        py-2 md:py-3
         active:scale-95
         transition-all
+        aspect-square
         ${
           highlightedKey === letter.toLowerCase()
             ? "bg-yellow-400 text-white shadow-lg"
@@ -45,43 +46,42 @@ export const VirtualKeyboard = ({
   return (
     <div
       className="
-        fixed
-        bottom-0
-        left-0
         w-full
+        h-full
         bg-blue-200
-        p-3 sm:p-4
+        p-2 md:p-3
         rounded-t-2xl
         flex flex-col
-        gap-2 sm:gap-3
+        gap-1 md:gap-2
         z-50
+        overflow-y-auto
       "
     >
       {/* ROW 1 */}
-      <div className="grid grid-cols-10 gap-2 sm:gap-3 w-full">
+      <div className="grid grid-cols-10 gap-1 md:gap-2 w-full">
         {row1.map((l) => (
           <KeyButton key={l} letter={l} />
         ))}
       </div>
 
       {/* ROW 2 */}
-      <div className="grid grid-cols-9 gap-2 sm:gap-3 w-[92%] mx-auto">
+      <div className="grid grid-cols-9 gap-1 md:gap-2 w-full mx-auto">
         {row2.map((l) => (
           <KeyButton key={l} letter={l} />
         ))}
       </div>
 
       {/* ROW 3 */}
-      <div className="grid grid-cols-9 gap-2 sm:gap-3 w-[92%] mx-auto mb-0 pb-0">
+      <div className="grid grid-cols-9 gap-1 md:gap-2 w-full mx-auto mb-0 pb-0">
         {/* BACKSPACE */}
         <button
           onClick={onBackspace}
           className="
-            bg-white shadow-md rounded-2xl 
+            bg-white shadow-md rounded-lg 
             font-bold flex items-center justify-center 
-            text-lg sm:text-2xl
-            px-3 sm:px-4 py-3 sm:py-4
+            text-sm md:text-lg
             active:scale-95
+            aspect-square
           "
         >
           ⌫
@@ -95,11 +95,11 @@ export const VirtualKeyboard = ({
         <button
           onClick={onClear}
           className="
-            bg-white shadow-md rounded-2xl 
+            bg-white shadow-md rounded-lg 
             font-bold flex items-center justify-center 
-            text-lg sm:text-2xl
-            px-3 sm:px-4 py-3 sm:py-4
+            text-xs md:text-sm
             active:scale-95
+            aspect-square
           "
         >
           CLR
