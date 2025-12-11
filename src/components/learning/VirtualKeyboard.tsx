@@ -49,30 +49,30 @@ export const VirtualKeyboard = ({
         w-full
         h-full
         bg-blue-200
-        p-2 md:p-3
+        p-1 md:p-2
         rounded-t-2xl
         flex flex-col
-        gap-1 md:gap-2
+        gap-0.5 md:gap-1
         z-50
         overflow-y-auto
       "
     >
       {/* ROW 1 */}
-      <div className="grid grid-cols-10 gap-1 md:gap-2 w-full">
+      <div className="grid grid-cols-10 gap-0.5 md:gap-1 w-full">
         {row1.map((l) => (
           <KeyButton key={l} letter={l} />
         ))}
       </div>
 
       {/* ROW 2 */}
-      <div className="grid grid-cols-9 gap-1 md:gap-2 w-full mx-auto">
+      <div className="grid grid-cols-9 gap-0.5 md:gap-1 w-full mx-auto">
         {row2.map((l) => (
           <KeyButton key={l} letter={l} />
         ))}
       </div>
 
       {/* ROW 3 */}
-      <div className="grid grid-cols-9 gap-1 md:gap-2 w-full mx-auto mb-0 pb-0">
+      <div className="grid grid-cols-9 gap-0.5 md:gap-1 w-full mx-auto mb-0 pb-0">
         {/* BACKSPACE */}
         <button
           onClick={onBackspace}

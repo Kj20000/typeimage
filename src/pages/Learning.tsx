@@ -155,47 +155,47 @@ const Learning = () => {
     <div className="h-[100dvh] w-full overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 flex flex-col">
       
       {/* HEADER */}
-      <div className="bg-gradient-to-r from-primary to-secondary p-2 shadow-lg flex-shrink-0">
+      <div className="bg-gradient-to-r from-primary to-secondary p-1.5 shadow-lg flex-shrink-0">
         <div className="flex justify-between items-center px-2">
-          <h1 className="text-lg font-bold text-white">🎨 Word Learning</h1>
+          <h1 className="text-base sm:text-lg font-bold text-white">🎨 Word Learning</h1>
           <Button
             onClick={() => navigate("/settings")}
             variant="secondary"
             size="icon"
-            className="bg-white/20 hover:bg-white/30 text-white h-8 w-8"
+            className="bg-white/20 hover:bg-white/30 text-white h-7 w-7 sm:h-8 sm:w-8"
           >
-            <Settings className="h-4 w-4" />
+            <Settings className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </Button>
         </div>
       </div>
 
       {/* MODE TOGGLE */}
-      <div className="flex items-center justify-end gap-2 px-4 py-2 flex-shrink-0">
-        <Image className={`h-4 w-4 ${mode === "image-first" ? "text-primary" : "text-muted-foreground"}`} />
+      <div className="flex items-center justify-end gap-2 px-3 py-1 flex-shrink-0">
+        <Image className={`h-3.5 w-3.5 ${mode === "image-first" ? "text-primary" : "text-muted-foreground"}`} />
         <Switch
           checked={mode === "word-first"}
           onCheckedChange={(checked) => setMode(checked ? "word-first" : "image-first")}
           className="data-[state=checked]:bg-primary"
         />
-        <Type className={`h-4 w-4 ${mode === "word-first" ? "text-primary" : "text-muted-foreground"}`} />
+        <Type className={`h-3.5 w-3.5 ${mode === "word-first" ? "text-primary" : "text-muted-foreground"}`} />
       </div>
 
-      {/* CONTENT AREA */}
-      <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-2 lg:gap-4 p-2 lg:p-4">
+      {/* CONTENT AREA – FLEX WITH MIN-HEIGHT 0 */}
+      <div className="flex-1 min-h-0 flex flex-col landscape:sm:flex-row gap-1 landscape:sm:gap-2 p-1 landscape:sm:p-2">
         {/* IMAGE – LEFT SIDE */}
         <div
           className="
             flex items-center justify-center 
             flex-1 min-h-0
             relative
-            lg:w-1/2
+            landscape:sm:w-1/3
           "
         >
           <button
             onClick={goPrevious}
-            className="absolute left-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
+            className="absolute left-1 z-10 bg-white/80 hover:bg-white rounded-full p-1.5 shadow-lg transition-all"
           >
-            <ChevronLeft className="h-6 w-6 text-primary" />
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
 
           {currentWord && (mode === "image-first" || wordCompleted) && (
@@ -207,15 +207,16 @@ const Learning = () => {
                 animate-scale-in
                 
                 /* Mobile portrait */
-                h-[180px] w-[180px]
+                h-[140px] w-[140px]
 
                 /* Tablet portrait */
-                portrait:sm:h-[250px] portrait:sm:w-[250px]
-                portrait:md:h-[280px] portrait:md:w-[280px]
+                portrait:sm:h-[200px] portrait:sm:w-[200px]
+                portrait:md:h-[240px] portrait:md:w-[240px]
 
-                /* Landscape */
-                landscape:h-[200px] landscape:w-[200px]
-                landscape:md:h-[240px] landscape:md:w-[240px]
+                /* Landscape mobile */
+                landscape:h-[120px] landscape:w-[120px]
+                landscape:sm:h-[160px] landscape:sm:w-[160px]
+                landscape:md:h-[200px] landscape:md:w-[200px]
                 
                 /* Large screens */
                 lg:h-[300px] lg:w-[300px]
@@ -224,16 +225,16 @@ const Learning = () => {
           )}
 
           {currentWord && mode === "word-first" && !wordCompleted && (
-            <div className="flex items-center justify-center h-[180px] w-[180px] portrait:sm:h-[250px] portrait:sm:w-[250px] portrait:md:h-[280px] portrait:md:w-[280px] landscape:h-[200px] landscape:w-[200px] landscape:md:h-[240px] landscape:md:w-[240px] lg:h-[300px] lg:w-[300px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
-              <span className="text-6xl">❓</span>
+            <div className="flex items-center justify-center h-[140px] w-[140px] portrait:sm:h-[200px] portrait:sm:w-[200px] portrait:md:h-[240px] portrait:md:w-[240px] landscape:h-[120px] landscape:w-[120px] landscape:sm:h-[160px] landscape:sm:w-[160px] landscape:md:h-[200px] landscape:md:w-[200px] lg:h-[300px] lg:w-[300px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
+              <span className="text-4xl sm:text-6xl">❓</span>
             </div>
           )}
 
           <button
             onClick={goNext}
-            className="absolute right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
+            className="absolute right-1 z-10 bg-white/80 hover:bg-white rounded-full p-1.5 shadow-lg transition-all"
           >
-            <ChevronRight className="h-6 w-6 text-primary" />
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
 
@@ -242,7 +243,7 @@ const Learning = () => {
           className="
             flex items-center justify-center
             flex-1 min-h-0
-            lg:w-1/2
+            landscape:sm:w-2/3
           "
         >
           <WordInput
@@ -254,8 +255,8 @@ const Learning = () => {
         </div>
       </div>
 
-      {/* KEYBOARD (BOTTOM FIXED) */}
-      <div className="portrait:h-[35dvh] landscape:md:h-[45dvh] landscape:sm:h-[50dvh] lg:h-auto flex-shrink-0 z-50">
+      {/* KEYBOARD (BOTTOM) – COMPACT HEIGHT */}
+      <div className="portrait:h-[32dvh] landscape:sm:h-[40dvh] landscape:h-[45dvh] lg:h-auto flex-shrink-0 z-50 overflow-hidden">
         <VirtualKeyboard
           onKeyClick={handleKeyClick}
           onBackspace={handleBackspace}
