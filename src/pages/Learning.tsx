@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase";
 import { Button } from "@/components/ui/button";
 import { Settings, ChevronLeft, ChevronRight, Image, Type } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -160,11 +160,18 @@ const Learning = () => {
         <Type className={`h-4 w-4 ${mode === "word-first" ? "text-primary" : "text-muted-foreground"}`} />
       </div>
 
-      {/* MAIN CONTENT — RESPONSIVE SPLIT IN LANDSCAPE */}
-      <div className="flex-1 min-h-0 flex flex-col landscape:flex-row overflow-hidden">
+      {/* MAIN CONTENT — LANDSCAPE SPLIT WITH BETTER PROPORTIONS */}
+      <div className="flex-1 min-h-0 flex flex-col landscape:flex-row landscape:gap-2 overflow-hidden">
 
-        {/* LEFT — IMAGE */}
-        <div className="flex-1 flex items-center justify-center p-4 relative overflow-hidden">
+        {/* LEFT — IMAGE AREA (Small in Landscape) */}
+        <div className="
+          flex
+          items-center justify-center
+          p-4 relative overflow-hidden
+          flex-1
+          landscape:basis-[40%]
+          landscape:max-w-[40%]
+        ">
 
           {/* PREVIOUS BUTTON */}
           <button
@@ -174,15 +181,21 @@ const Learning = () => {
             <ChevronLeft className="h-6 w-6 text-primary" />
           </button>
 
-          {/* IMAGE or ? */}
+          {/* IMAGE OR QUESTION MARK */}
           {currentWord && (mode === "image-first" || wordCompleted) ? (
             <img
               src={currentWord.image_url}
               alt={currentWord.word}
-              className="object-contain rounded-xl shadow-xl border-4 border-primary/20 animate-scale-in w-[230px] h-[230px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px]"
+              className="
+                object-contain rounded-xl shadow-xl border-4 border-primary/20 animate-scale-in
+                w-[230px] h-[230px]
+                sm:w-[300px] sm:h-[300px]
+                md:w-[350px] md:h-[350px]
+                landscape:w-[180px] landscape:h-[180px]
+              "
             />
           ) : (
-            <div className="flex items-center justify-center w-[230px] h-[230px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
+            <div className="flex items-center justify-center landscape:w-[160px] landscape:h-[160px] w-[230px] h-[230px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
               <span className="text-6xl">❓</span>
             </div>
           )}
@@ -196,8 +209,16 @@ const Learning = () => {
           </button>
         </div>
 
-        {/* RIGHT — WORD INPUT + KEYBOARD (LANDSCAPE STACK) */}
-        <div className="flex-1 flex flex-col items-center p-4 gap-4 landscape:justify-start portrait:justify-center">
+        {/* RIGHT — WORD INPUT + LARGE KEYBOARD */}
+        <div className="
+          flex flex-col items-center 
+          p-2 sm:p-4 gap-3
+          flex-1
+          landscape:basis-[60%]
+          landscape:max-w-[60%]
+          landscape:justify-start
+          portrait:justify-center
+        ">
 
           {/* WORD INPUT */}
           <div className="w-full flex justify-center">
@@ -209,14 +230,15 @@ const Learning = () => {
             />
           </div>
 
-          {/* KEYBOARD
-              Portrait → fixed bottom
-              Landscape → inside right panel (no overlap)
-          */}
+          {/* KEYBOARD (Not fixed in landscape) */}
           <div className="
             w-full
             portrait:fixed portrait:bottom-0 portrait:left-0 portrait:right-0
-            landscape:static landscape:mt-auto
+
+            landscape:static 
+            landscape:mt-auto
+            landscape:h-[55vh]
+            landscape:max-h-[60vh]
           ">
             <VirtualKeyboard
               onKeyClick={handleKeyClick}
