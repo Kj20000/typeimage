@@ -23,7 +23,7 @@ export const VirtualKeyboard = ({
         rounded-2xl
         font-semibold
         flex items-center justify-center
-        text-lg sm:text-2xl
+        text-lg sm:text-xl md:text-2xl
         px-3 sm:px-4
         py-3 sm:py-4
         active:scale-95
@@ -45,16 +45,15 @@ export const VirtualKeyboard = ({
   return (
     <div
       className="
-        fixed
-        bottom-0
-        left-0
         w-full
+        h-full
         bg-blue-200
         p-3 sm:p-4
         rounded-t-2xl
         flex flex-col
         gap-2 sm:gap-3
-        z-50
+        overflow-hidden
+        virtual-keyboard
       "
     >
       {/* ROW 1 */}
@@ -79,7 +78,7 @@ export const VirtualKeyboard = ({
           className="
             bg-white shadow-md rounded-2xl 
             font-bold flex items-center justify-center 
-            text-lg sm:text-2xl
+            text-lg sm:text-xl md:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
           "
@@ -97,7 +96,7 @@ export const VirtualKeyboard = ({
           className="
             bg-white shadow-md rounded-2xl 
             font-bold flex items-center justify-center 
-            text-lg sm:text-2xl
+            text-lg sm:text-xl md:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
           "
