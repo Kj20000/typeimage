@@ -202,33 +202,32 @@ ${m}`}class Ae extends Error{constructor({message:e,code:r,cause:n,name:s}){var 
         rounded-2xl
         font-semibold
         flex items-center justify-center
-        text-lg sm:text-2xl
+        text-lg sm:text-xl md:text-2xl
         px-3 sm:px-4
         py-3 sm:py-4
         active:scale-95
         transition-all
         ${n===l.toLowerCase()?"bg-yellow-400 text-white shadow-lg":"bg-white text-black shadow-md hover:bg-gray-50"}
       `,style:{touchAction:"manipulation"},children:l});return x.jsxs("div",{className:`
-        fixed
-        bottom-0
-        left-0
         w-full
+        h-full
         bg-blue-200
         p-3 sm:p-4
         rounded-t-2xl
         flex flex-col
         gap-2 sm:gap-3
-        z-50
+        overflow-hidden
+        virtual-keyboard
       `,children:[x.jsx("div",{className:"grid grid-cols-10 gap-2 sm:gap-3 w-full",children:s.map(l=>x.jsx(a,{letter:l},l))}),x.jsx("div",{className:"grid grid-cols-9 gap-2 sm:gap-3 w-[92%] mx-auto",children:i.map(l=>x.jsx(a,{letter:l},l))}),x.jsxs("div",{className:"grid grid-cols-9 gap-2 sm:gap-3 w-[92%] mx-auto mb-0 pb-0",children:[x.jsx("button",{onClick:e,className:`
             bg-white shadow-md rounded-2xl 
             font-bold flex items-center justify-center 
-            text-lg sm:text-2xl
+            text-lg sm:text-xl md:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
           `,children:"⌫"}),o.map(l=>x.jsx(a,{letter:l},l)),x.jsx("button",{onClick:r,className:`
             bg-white shadow-md rounded-2xl 
             font-bold flex items-center justify-center 
-            text-lg sm:text-2xl
+            text-lg sm:text-xl md:text-2xl
             px-3 sm:px-4 py-3 sm:py-4
             active:scale-95
           `,children:"CLR"})]})]})};function lA(t){const e=_.useRef({value:t,previous:t});return _.useMemo(()=>(e.current.value!==t&&(e.current.previous=e.current.value,e.current.value=t),e.current.previous),[t])}var Ru="Switch",[uA]=Wo(Ru),[cA,dA]=uA(Ru),K_=_.forwardRef((t,e)=>{const{__scopeSwitch:r,name:n,checked:s,defaultChecked:i,required:o,disabled:a,value:l="on",onCheckedChange:u,form:c,...d}=t,[h,f]=_.useState(null),v=Et(e,y=>f(y)),g=_.useRef(!1),w=h?c||!!h.closest("form"):!0,[m,p]=qy({prop:s,defaultProp:i??!1,onChange:u,caller:Ru});return x.jsxs(cA,{scope:r,checked:m,disabled:a,children:[x.jsx(et.button,{type:"button",role:"switch","aria-checked":m,"aria-required":o,"data-state":J_(m),"data-disabled":a?"":void 0,disabled:a,value:l,...d,ref:v,onClick:Ne(t.onClick,y=>{p(b=>!b),w&&(g.current=y.isPropagationStopped(),g.current||y.stopPropagation())})}),w&&x.jsx(Z_,{control:h,bubbles:!g.current,name:n,value:l,checked:m,required:o,disabled:a,form:c,style:{transform:"translateX(-100%)"}})]})});K_.displayName=Ru;var G_="SwitchThumb",Q_=_.forwardRef((t,e)=>{const{__scopeSwitch:r,...n}=t,s=dA(G_,r);return x.jsx(et.span,{"data-state":J_(s.checked),"data-disabled":s.disabled?"":void 0,...n,ref:e})});Q_.displayName=G_;var fA="SwitchBubbleInput",Z_=_.forwardRef(({__scopeSwitch:t,control:e,checked:r,bubbles:n=!0,...s},i)=>{const o=_.useRef(null),a=Et(o,i),l=lA(r),u=Dw(e);return _.useEffect(()=>{const c=o.current;if(!c)return;const d=window.HTMLInputElement.prototype,f=Object.getOwnPropertyDescriptor(d,"checked").set;if(l!==r&&f){const v=new Event("click",{bubbles:n});f.call(c,r),c.dispatchEvent(v)}},[l,r,n]),x.jsx("input",{type:"checkbox","aria-hidden":!0,defaultChecked:r,...s,tabIndex:-1,ref:a,style:{...s.style,...u,position:"absolute",pointerEvents:"none",opacity:0,margin:0}})});Z_.displayName=fA;function J_(t){return t?"checked":"unchecked"}var Y_=K_,hA=Q_;const X_=_.forwardRef(({className:t,...e},r)=>x.jsx(Y_,{className:Be("peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50",t),...e,ref:r,children:x.jsx(hA,{className:Be("pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0")})}));X_.displayName=Y_.displayName;const pA=()=>{const t=xu(),[e,r]=_.useState([]),[n,s]=_.useState(0),[i,o]=_.useState(""),[a,l]=_.useState(""),[u,c]=_.useState(""),[d,h]=_.useState("image-first"),[f,v]=_.useState(!1),g=_.useRef(null),w=e[n]||null;_.useEffect(()=>{m()},[]),_.useEffect(()=>{e.length>0&&w&&p()},[n,e]);const m=async()=>{const{data:R,error:U}=await Zt.from("words").select("word, image_url").order("word");if(U){_e.error("Failed to load words");return}R!=null&&R.length&&(r(R),s(Math.floor(Math.random()*R.length)))},p=()=>{if(o(""),v(!1),w!=null&&w.word.length){const R=w.word[0];l(R.toUpperCase()),c(R.toLowerCase()),setTimeout(()=>y(R),400)}},y=R=>{window.speechSynthesis&&(window.speechSynthesis.cancel(),setTimeout(()=>{const U=new SpeechSynthesisUtterance(R);U.rate=.8,U.volume=1,U.pitch=1,window.speechSynthesis.speak(U)},120))},b=R=>{if(!w)return;const U=R.toLowerCase();if(w.word.startsWith(U))if(o(U),U){const D=U.length;if(D<w.word.length){const G=w.word[D];l(G.toUpperCase()),c(G.toLowerCase()),y(G)}else l(""),c("");U===w.word&&(y(w.word),v(!0),setTimeout(()=>I(),d==="word-first"?1500:800))}else l(""),c("")},E=R=>{b(i+R.toLowerCase())},k=()=>{b(i.slice(0,-1))},S=()=>{b("")},C=()=>{e.length!==0&&s(R=>(R-1+e.length)%e.length)},I=()=>{e.length!==0&&s(R=>(R+1)%e.length)};return x.jsxs("div",{className:"h-[100dvh] w-full overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 flex flex-col",children:[x.jsx("div",{className:"bg-gradient-to-r from-primary to-secondary p-2 shadow-lg flex-shrink-0",children:x.jsxs("div",{className:"flex justify-between items-center px-2",children:[x.jsx("h1",{className:"text-lg font-bold text-white",children:"🎨 Word Learning"}),x.jsx(_r,{onClick:()=>t("/settings"),variant:"secondary",size:"icon",className:"bg-white/20 hover:bg-white/30 text-white h-8 w-8",children:x.jsx(QS,{className:"h-4 w-4"})})]})}),x.jsxs("div",{className:"flex items-center justify-end gap-2 px-4 py-2 flex-shrink-0",children:[x.jsx(qS,{className:`h-4 w-4 ${d==="image-first"?"text-primary":"text-muted-foreground"}`}),x.jsx(X_,{checked:d==="word-first",onCheckedChange:R=>h(R?"word-first":"image-first"),className:"data-[state=checked]:bg-primary"}),x.jsx(YS,{className:`h-4 w-4 ${d==="word-first"?"text-primary":"text-muted-foreground"}`})]}),x.jsxs("div",{className:"flex-1 min-h-0 flex flex-col landscape:flex-row overflow-hidden",children:[x.jsxs("div",{className:"flex-1 flex items-center justify-center p-4 relative overflow-hidden",children:[x.jsx("button",{onClick:C,className:"absolute left-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg",children:x.jsx(WS,{className:"h-6 w-6 text-primary"})}),w&&(d==="image-first"||f)?x.jsx("img",{src:w.image_url,alt:w.word,className:"object-contain rounded-xl shadow-xl border-4 border-primary/20 animate-scale-in w-[230px] h-[230px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px]"}):x.jsx("div",{className:"flex items-center justify-center w-[230px] h-[230px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5",children:x.jsx("span",{className:"text-6xl",children:"❓"})}),x.jsx("button",{onClick:I,className:"absolute right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg",children:x.jsx(HS,{className:"h-6 w-6 text-primary"})})]}),x.jsxs("div",{className:"flex-1 flex flex-col items-center p-4 gap-4 landscape:justify-start portrait:justify-center",children:[x.jsx("div",{className:"w-full flex justify-center",children:x.jsx(q_,{ref:g,value:i,suggestion:a,wordLength:(w==null?void 0:w.word.length)||0})}),x.jsx("div",{className:`
