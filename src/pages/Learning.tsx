@@ -26,7 +26,6 @@ const Learning = () => {
   const [wordCompleted, setWordCompleted] = useState(false);
 
   const inputRef = useRef<HTMLDivElement>(null);
-
   const currentWord = words[currentIndex] || null;
 
   useEffect(() => {
@@ -34,9 +33,7 @@ const Learning = () => {
   }, []);
 
   useEffect(() => {
-    if (words.length > 0 && currentWord) {
-      resetForCurrentWord();
-    }
+    if (words.length > 0 && currentWord) resetForCurrentWord();
   }, [currentIndex, words]);
 
   const fetchWords = async () => {
@@ -50,7 +47,7 @@ const Learning = () => {
       return;
     }
 
-    if (data && data.length > 0) {
+    if (data?.length) {
       setWords(data);
       setCurrentIndex(Math.floor(Math.random() * data.length));
     }
@@ -59,7 +56,8 @@ const Learning = () => {
   const resetForCurrentWord = () => {
     setCurrentInput("");
     setWordCompleted(false);
-    if (currentWord && currentWord.word.length > 0) {
+
+    if (currentWord?.word.length) {
       const firstLetter = currentWord.word[0];
       setSuggestion(firstLetter.toUpperCase());
       setHighlightedKey(firstLetter.toLowerCase());
@@ -81,6 +79,7 @@ const Learning = () => {
 
   const handleInputChange = (value: string) => {
     if (!currentWord) return;
+
     const lower = value.toLowerCase();
     if (!currentWord.word.startsWith(lower)) return;
 
@@ -88,6 +87,7 @@ const Learning = () => {
 
     if (lower) {
       const nextIndex = lower.length;
+
       if (nextIndex < currentWord.word.length) {
         const nextLetter = currentWord.word[nextIndex];
         setSuggestion(nextLetter.toUpperCase());
@@ -100,12 +100,8 @@ const Learning = () => {
 
       if (lower === currentWord.word) {
         speak(currentWord.word);
-        if (mode === "word-first") {
-          setWordCompleted(true);
-          setTimeout(() => goNext(), 1500);
-        } else {
-          setTimeout(() => goNext(), 800);
-        }
+        setWordCompleted(true);
+        setTimeout(() => goNext(), mode === "word-first" ? 1500 : 800);
       }
     } else {
       setSuggestion("");
@@ -137,7 +133,7 @@ const Learning = () => {
 
   return (
     <div className="h-[100dvh] w-full overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 flex flex-col">
-      
+
       {/* HEADER */}
       <div className="bg-gradient-to-r from-primary to-secondary p-2 shadow-lg flex-shrink-0">
         <div className="flex justify-between items-center px-2">
@@ -164,88 +160,72 @@ const Learning = () => {
         <Type className={`h-4 w-4 ${mode === "word-first" ? "text-primary" : "text-muted-foreground"}`} />
       </div>
 
-      {/* CONTENT – FIXED 50/50 LAYOUT ON LARGE SCREENS */}
-      <div
-        className="
-          flex-1 min-h-0
-          flex flex-col
-          lg:flex-row
-          portrait:pb-[40dvh] landscape:pb-[50dvh]
-          overflow-hidden
-        "
-      >
-        {/* IMAGE – FIXED LEFT SIDE */}
-        <div
-          className="
-            flex-1 flex items-center justify-center
-            p-4
-            relative min-h-0
-            lg:w-1/2 lg:justify-center
-            overflow-hidden
-          "
-        >
+      {/* MAIN CONTENT — RESPONSIVE SPLIT IN LANDSCAPE */}
+      <div className="flex-1 min-h-0 flex flex-col landscape:flex-row overflow-hidden">
+
+        {/* LEFT — IMAGE */}
+        <div className="flex-1 flex items-center justify-center p-4 relative overflow-hidden">
+
+          {/* PREVIOUS BUTTON */}
           <button
             onClick={goPrevious}
-            className="absolute left-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
+            className="absolute left-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg"
           >
             <ChevronLeft className="h-6 w-6 text-primary" />
           </button>
 
-          {currentWord && (mode === "image-first" || wordCompleted) && (
+          {/* IMAGE or ? */}
+          {currentWord && (mode === "image-first" || wordCompleted) ? (
             <img
               src={currentWord.image_url}
               alt={currentWord.word}
-              className="
-                object-contain rounded-xl shadow-xl border-4 border-primary/20
-                animate-scale-in
-                w-[230px] h-[230px]
-                sm:w-[300px] sm:h-[300px]
-                md:w-[350px] md:h-[350px]
-                lg:w-[280px] lg:h-[280px]
-              "
+              className="object-contain rounded-xl shadow-xl border-4 border-primary/20 animate-scale-in w-[230px] h-[230px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px]"
             />
-          )}
-
-          {currentWord && mode === "word-first" && !wordCompleted && (
-            <div className="flex items-center justify-center w-[230px] h-[230px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px] lg:w-[280px] lg:h-[280px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
+          ) : (
+            <div className="flex items-center justify-center w-[230px] h-[230px] rounded-xl border-4 border-dashed border-primary/30 bg-primary/5">
               <span className="text-6xl">❓</span>
             </div>
           )}
 
+          {/* NEXT BUTTON */}
           <button
             onClick={goNext}
-            className="absolute right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
+            className="absolute right-2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg"
           >
             <ChevronRight className="h-6 w-6 text-primary" />
           </button>
         </div>
 
-        {/* FIXED RIGHT SIDE – WORD BOX */}
-        <div
-          className="
-            flex items-center justify-center
-            py-4 md:py-2 px-4
-            lg:w-1/2 lg:justify-center
-            overflow-hidden
-          "
-        >
-          <WordInput
-            ref={inputRef}
-            value={currentInput}
-            suggestion={suggestion}
-            wordLength={currentWord?.word.length || 0}
-          />
-        </div>
-      </div>
+        {/* RIGHT — WORD INPUT + KEYBOARD (LANDSCAPE STACK) */}
+        <div className="flex-1 flex flex-col items-center p-4 gap-4 landscape:justify-start portrait:justify-center">
 
-      {/* KEYBOARD (BOTTOM FIXED) */}
-      <div className="fixed bottom-0 left-0 right-0 portrait:h-[40dvh] landscape:h-[50dvh] z-50">
-        <VirtualKeyboard
-          onKeyClick={handleKeyClick}
-          onBackspace={handleBackspace}
-          onClear={handleClear}
-          highlightedKey={highlightedKey}
-        />
+          {/* WORD INPUT */}
+          <div className="w-full flex justify-center">
+            <WordInput
+              ref={inputRef}
+              value={currentInput}
+              suggestion={suggestion}
+              wordLength={currentWord?.word.length || 0}
+            />
+          </div>
+
+          {/* KEYBOARD
+              Portrait → fixed bottom
+              Landscape → inside right panel (no overlap)
+          */}
+          <div className="
+            w-full
+            portrait:fixed portrait:bottom-0 portrait:left-0 portrait:right-0
+            landscape:static landscape:mt-auto
+          ">
+            <VirtualKeyboard
+              onKeyClick={handleKeyClick}
+              onBackspace={handleBackspace}
+              onClear={handleClear}
+              highlightedKey={highlightedKey}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
