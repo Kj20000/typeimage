@@ -102,3 +102,16 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+/* Mobile landscape keyboard scaling */
+@media (orientation: landscape) and (max-height: 500px) {
+  .virtual-keyboard {
+    transform: scale(0.78);
+    transform-origin: bottom center;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 430px) {
+  .virtual-keyboard {
+    transform: scale(0.70);
+  }
+}
