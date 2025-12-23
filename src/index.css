@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Bright kid-friendly cartoon color palette */
+    --background: 55 100% 92%;
+    --foreground: 260 85% 25%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 260 85% 25%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 260 85% 25%;
+
+    --primary: 260 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 100% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --success: 145 70% 50%;
+    --success-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 260 20% 50%;
+
+    --accent: 45 100% 60%;
+    --accent-foreground: 260 85% 25%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 40% 88%;
+    --input: 210 40% 92%;
+    --ring: 260 85% 55%;
+
+    --radius: 1.5rem;
+
+    /* Custom colors for the app */
+    --keyboard-bg: 260 85% 55%;
+    --keyboard-key: 0 0% 100%;
+    --keyboard-key-active: 25 100% 55%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(260 85% 55%), hsl(25 100% 55%));
+    --gradient-success: linear-gradient(135deg, hsl(145 70% 50%), hsl(170 70% 50%));
+    
+    /* Animations */
+    --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    --background: 260 50% 15%;
+    --foreground: 210 40% 98%;
+
+    --card: 260 40% 20%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 260 40% 20%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 260 85% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 340 85% 65%;
+    --secondary-foreground: 0 0% 100%;
+
+    --success: 145 70% 55%;
+    --success-foreground: 0 0% 100%;
+
+    --muted: 260 30% 25%;
+    --muted-foreground: 210 20% 65%;
+
+    --accent: 45 100% 65%;
+    --accent-foreground: 260 85% 25%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 260 30% 30%;
+    --input: 260 30% 25%;
+    --ring: 260 85% 65%;
+
+    --keyboard-bg: 260 85% 45%;
+    --keyboard-key: 260 30% 25%;
+    --keyboard-key-active: 340 85% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Theme Classes - Outside layers for higher priority */
+/* Default Rainbow Fun Theme - keeps original colors */
+html.theme-default,
+.theme-default {
+  --background: 55 100% 92% !important;
+  --foreground: 260 85% 25% !important;
+  --primary: 260 85% 55% !important;
+  --secondary: 25 100% 55% !important;
+  --accent: 45 100% 60% !important;
+  --card: 0 0% 100% !important;
+  --card-foreground: 260 85% 25% !important;
+  --muted: 210 40% 96% !important;
+  --muted-foreground: 260 20% 50% !important;
+  --popover: 0 0% 100% !important;
+  --popover-foreground: 260 85% 25% !important;
+  --border: 210 40% 88% !important;
+  --input: 210 40% 92% !important;
+  --ring: 260 85% 55% !important;
+}
+
+html.theme-ocean,
+.theme-ocean {
+  --background: 200 100% 95% !important;
+  --foreground: 210 90% 20% !important;
+  --primary: 200 85% 50% !important;
+  --secondary: 180 70% 55% !important;
+  --accent: 190 80% 60% !important;
+  --card: 200 50% 98% !important;
+  --card-foreground: 210 90% 20% !important;
+  --muted: 200 40% 96% !important;
+  --muted-foreground: 210 20% 50% !important;
+  --popover: 200 50% 98% !important;
+  --popover-foreground: 210 90% 20% !important;
+  --border: 200 40% 88% !important;
+  --input: 200 40% 92% !important;
+  --ring: 200 85% 50% !important;
+}
+
+html.theme-forest,
+.theme-forest {
+  --background: 120 60% 95% !important;
+  --foreground: 140 70% 20% !important;
+  --primary: 140 70% 45% !important;
+  --secondary: 80 65% 50% !important;
+  --accent: 100 70% 55% !important;
+  --card: 120 40% 98% !important;
+  --card-foreground: 140 70% 20% !important;
+  --muted: 120 40% 96% !important;
+  --muted-foreground: 140 20% 50% !important;
+  --popover: 120 40% 98% !important;
+  --popover-foreground: 140 70% 20% !important;
+  --border: 120 40% 88% !important;
+  --input: 120 40% 92% !important;
+  --ring: 140 70% 45% !important;
+}
+
+html.theme-sunset,
+.theme-sunset {
+  --background: 30 100% 95% !important;
+  --foreground: 320 70% 25% !important;
+  --primary: 340 85% 60% !important;
+  --secondary: 25 100% 55% !important;
+  --accent: 15 90% 60% !important;
+  --card: 30 60% 98% !important;
+  --card-foreground: 320 70% 25% !important;
+  --muted: 30 40% 96% !important;
+  --muted-foreground: 320 20% 50% !important;
+  --popover: 30 60% 98% !important;
+  --popover-foreground: 320 70% 25% !important;
+  --border: 30 40% 88% !important;
+  --input: 30 40% 92% !important;
+  --ring: 340 85% 60% !important;
+}
+
+html.theme-candy,
+.theme-candy {
+  --background: 320 100% 95% !important;
+  --foreground: 280 70% 25% !important;
+  --primary: 300 75% 60% !important;
+  --secondary: 330 85% 65% !important;
+  --accent: 280 80% 70% !important;
+  --card: 320 60% 98% !important;
+  --card-foreground: 280 70% 25% !important;
+  --muted: 320 40% 96% !important;
+  --muted-foreground: 280 20% 50% !important;
+  --popover: 320 60% 98% !important;
+  --popover-foreground: 280 70% 25% !important;
+  --border: 320 40% 88% !important;
+  --input: 320 40% 92% !important;
+  --ring: 300 75% 60% !important;
+}
+
+/* Balloon and celebration animations */
+@keyframes floatUpSlow {
+  0% {
+    bottom: -100px;
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateX(12px) rotate(3deg) scale(1.02);
+  }
+  100% {
+    bottom: calc(100vh + 50px);
+    opacity: 0;
+    transform: translateX(-8px) rotate(-2deg) scale(0.98);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    bottom: -100px;
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    bottom: calc(100vh + 100px);
+    transform: translateX(20px) rotate(15deg);
+  }
+}
+
+@keyframes starBurst {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx, 50px), var(--ty, -50px)) scale(0.3) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-starBurst {
+  animation: starBurst 1s ease-out forwards;
+}
+
+.animate-starBurst:nth-child(8n+1) { --tx: 60px; --ty: -80px; }
+.animate-starBurst:nth-child(8n+2) { --tx: -60px; --ty: -80px; }
+.animate-starBurst:nth-child(8n+3) { --tx: 80px; --ty: -40px; }
+.animate-starBurst:nth-child(8n+4) { --tx: -80px; --ty: -40px; }
+.animate-starBurst:nth-child(8n+5) { --tx: 70px; --ty: 40px; }
+.animate-starBurst:nth-child(8n+6) { --tx: -70px; --ty: 40px; }
+.animate-starBurst:nth-child(8n+7) { --tx: 50px; --ty: 80px; }
+.animate-starBurst:nth-child(8n+8) { --tx: -50px; --ty: 80px; }
+
+@keyframes confettiFall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100px) rotate(360deg);
+  }
+}
+
